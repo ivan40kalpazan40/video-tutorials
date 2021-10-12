@@ -1,12 +1,10 @@
 const express = require('express');
+const handlebarsInit = require('./config/handlebars');
 const path = require('path');
-const handlebars = require('express-handlebars');
 
 const app = express();
-app.set('views', path.resolve('./src/views'));
-app.engine('hbs', handlebars({ extname: '.hbs' }));
-app.set('view engine', 'hbs');
-
+require('./config/handlebars')(app);
+app.use(express.static(path.resolve(__dirname, './public')));
 app.get('/', (req, res) => {
   res.render('index');
 });
