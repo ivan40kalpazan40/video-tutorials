@@ -1,13 +1,11 @@
 const express = require('express');
-const handlebarsInit = require('./config/handlebars');
+const routes = require('./routes');
 const path = require('path');
 
 const app = express();
 require('./config/handlebars')(app);
 app.use(express.static(path.resolve(__dirname, './public')));
-app.get('/', (req, res) => {
-  res.render('index');
-});
+app.use(routes);
 
 app.listen(
   3000,
