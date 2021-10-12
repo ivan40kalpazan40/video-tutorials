@@ -32,6 +32,7 @@ const loginUser = async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = await userServices.logUser(username, password);
+    res.cookie('mycookie', 'sgfsgfdafd');
     res.redirect('/user');
   } catch (error) {
     console.log(error.message);
