@@ -1,4 +1,5 @@
 const express = require('express');
+const userServices = require('../services/userServices');
 const router = express.Router();
 
 const userHomePage = (req, res) => {
@@ -11,7 +12,17 @@ const renderRegister = (req, res) => {
 
 const registerUser = (req, res) => {
   const { username, password, repeatPassword } = req.body;
-  console.log('REGISTER USER POST REQUEST');
+  userServices
+    .create(username, password)
+    .then((user) => {
+      console.log(user);
+      res.redirect('/user/login');
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.send(err.message);
+    });
+  const user = console.log('REGISTER USER POST REQUEST');
 };
 const renderLogin = (req, res) => {
   res.render('user/login');
