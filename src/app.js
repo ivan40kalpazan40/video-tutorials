@@ -6,6 +6,7 @@ const path = require('path');
 const app = express();
 require('./config/handlebars')(app);
 app.use(express.static(path.resolve(__dirname, './public')));
+app.use(express.urlencoded({ extended: false }));
 app.use(routes);
 
 mongoose
