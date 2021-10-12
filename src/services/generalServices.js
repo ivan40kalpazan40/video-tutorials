@@ -2,5 +2,8 @@ const validate = (pass1, pass2) => {
   return pass1 === pass2;
 };
 
-const generalServices = { validate };
+const userExists = (user) => {
+  return user !== null;
+};
+const generalServices = { validate, userExists };
 module.exports = generalServices;

@@ -23,13 +23,26 @@ const registerUser = (req, res) => {
     });
   const user = console.log('REGISTER USER POST REQUEST');
 };
+
 const renderLogin = (req, res) => {
   res.render('user/login');
+};
+
+const loginUser = async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await userServices.logUser(username, password);
+    res.redirect('/user');
+  } catch (error) {
+    console.log(error.message);
+    res.redirect('/user/login');
+  }
 };
 
 router.get('/register', renderRegister);
 router.post('/register', registerUser);
 router.get('/login', renderLogin);
+router.post('/login', loginUser);
 router.get('/', userHomePage);
 
 module.exports = router;
