@@ -4,7 +4,7 @@ const generalServices = require('../services/generalServices');
 const router = express.Router();
 
 const userHomePage = (req, res) => {
-  res.render('user/user-home');
+  res.render('user/user-home', { user: req.user });
 };
 
 const renderRegister = (req, res) => {
