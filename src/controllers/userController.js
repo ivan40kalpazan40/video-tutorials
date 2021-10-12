@@ -13,14 +13,13 @@ const renderRegister = (req, res) => {
 const registerUser = (req, res) => {
   const { username, password, repeatPassword } = req.body;
   userServices
-    .create(username, password)
+    .create(username, password, repeatPassword)
     .then((user) => {
-      console.log(user);
       res.redirect('/user/login');
     })
     .catch((err) => {
       console.log(err.message);
-      res.send(err.message);
+      res.redirect('/user/register');
     });
   const user = console.log('REGISTER USER POST REQUEST');
 };
