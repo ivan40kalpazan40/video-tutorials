@@ -1,5 +1,6 @@
 const express = require('express');
 const userServices = require('../services/userServices');
+const generalServices = require('../services/generalServices');
 const router = express.Router();
 
 const userHomePage = (req, res) => {
@@ -32,7 +33,8 @@ const loginUser = async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = await userServices.logUser(username, password);
-    res.cookie('mycookie', 'sgfsgfdafd');
+    const token = await generalServices.createToken(user);
+    res.cookie('mycookie', token);
     res.redirect('/user');
   } catch (error) {
     console.log(error.message);
