@@ -7,12 +7,6 @@ const userSchema = new mongoose.Schema({
   enrolledIn: [{ type: mongoose.Types.ObjectId, ref: 'Course' }],
   created: [{ type: mongoose.Types.ObjectId, ref: 'Course' }],
 });
-// userSchema.pre('save', function (next) {
-//   bcrypt.hash(this.password, 12).then((hash) => {
-//     this.password = hash;
-//     next();
-//   });
-// });
 
 userSchema.method('enroll', function (course) {
   this.enrolledIn.push(course);
