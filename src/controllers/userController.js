@@ -1,11 +1,13 @@
 const express = require('express');
 const userServices = require('../services/userServices');
+const courseServices = require('../services/courseServices');
 const generalServices = require('../services/generalServices');
 const { homeNotLogged } = require('../middleware/authMiddleware');
 const router = express.Router();
 
-const userHomePage = (req, res) => {
-  res.render('user/user-home', { user: req.user });
+const userHomePage = async (req, res) => {
+  const courses = await courseServices.getAll();
+  res.render('user/user-home', { courses, user: req.user });
 };
 
 const renderRegister = (req, res) => {
