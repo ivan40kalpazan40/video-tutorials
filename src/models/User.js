@@ -18,8 +18,8 @@ userSchema.method('enroll', function (course) {
   this.enrolledIn.push(course);
 });
 
-userSchema.method('isEnrolled', function (course) {
-  return this.enrolledIn.includes(course);
+userSchema.method('isEnrolled', function (courseId) {
+  return this.enrolledIn.includes(courseId);
 });
 
 userSchema.method('validatePassword', function (password) {

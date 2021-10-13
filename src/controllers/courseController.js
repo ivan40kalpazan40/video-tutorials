@@ -26,8 +26,16 @@ const createCourse = async (req, res) => {
 
 const renderDetails = async (req, res) => {
   const courseId = req.params.id;
-  const course = await courseServices.getOne(courseId);
-  res.render('course/details', { course, user: req.user });
+  const userId = req.user._id;
+  try {
+    const user = await userServices.getUser(userId);
+    const course = await courseServices.getOne(courseId);
+    const isEnrolled = await user.isEnrolled(courseId);
+    res.render('course/details', { course, user: req.user, isEnrolled });
+  } catch (error) {
+    console.log(error);
+    res.redirect(`/course/${courseId}/details`);
+  }
 };
 
 const renderEdit = async (req, res) => {
