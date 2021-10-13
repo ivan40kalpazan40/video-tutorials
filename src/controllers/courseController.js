@@ -51,8 +51,10 @@ const editCourse = async (req, res) => {
   }
 };
 
-const deleteCourse = () => {
-  console.log('FROM DELETE');
+const deleteCourse = async (req, res) => {
+  const courseId = req.params.id;
+  await courseServices.deleteOne(courseId);
+  res.redirect('/');
 };
 
 router.get('/create', renderCreate);

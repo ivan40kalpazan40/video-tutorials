@@ -22,5 +22,9 @@ const update = async (id, newCourse) => {
   return course;
 };
 
-const courseServices = { create, update, getAll, getOne };
+const deleteOne = async (id) => {
+  return await Course.findByIdAndDelete(id);
+};
+
+const courseServices = { create, update, deleteOne, getAll, getOne };
 module.exports = courseServices;
