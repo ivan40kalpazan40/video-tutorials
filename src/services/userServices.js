@@ -2,6 +2,10 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const generalServices = require('./generalServices');
 
+const getUser = async (id) => {
+  const user = await User.findOne({ _id: id });
+  return user;
+};
 const create = async (username, password, password2) => {
   const isValid = generalServices.validate(password, password2);
   if (isValid) {
@@ -37,5 +41,6 @@ const logUser = async (username, password) => {
 const userServices = {
   create,
   logUser,
+  getUser,
 };
 module.exports = userServices;

@@ -1,5 +1,7 @@
 const express = require('express');
+const User = require('../models/User');
 const courseServices = require('../services/courseServices');
+const userServices = require('../services/userServices');
 const router = express.Router();
 
 const renderCreate = (req, res) => {
@@ -57,10 +59,26 @@ const deleteCourse = async (req, res) => {
   res.redirect('/');
 };
 
+const enrollUser = async (req, res) => {
+  const userId = req.user._id;
+  const courseId = req.params.id;
+  try {
+    const course = await courseServices.getOne(courseId);
+    const user = await userServices.getUser(userId);
+    await user.enroll(course);
+    await user.save();
+    res.redirect(`/course/${courseId}/details`);
+  } catch (error) {
+    console.log(error);
+    res.redirect(`/course/${courseId}/details`);
+  }
+};
+
 router.get('/create', renderCreate);
 router.post('/create', createCourse);
 router.get('/:id/details', renderDetails);
 router.get('/:id/edit', renderEdit);
 router.post('/:id/edit', editCourse);
 router.get('/:id/delete', deleteCourse);
+router.get('/:id/enroll', enrollUser);
 module.exports = router;
