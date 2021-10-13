@@ -11,13 +11,18 @@ const renderCreate = (req, res) => {
 
 const createCourse = async (req, res) => {
   const { title, description, imageUrl, isPublic } = req.body;
+  const userId = req.user._id;
   try {
+    const user = await userServices.getUser(userId);
+
     const course = await courseServices.create({
       title,
       description,
       imageUrl,
       isPublic: Boolean(isPublic),
     });
+    await user.becomeAuthor(course);
+    user.save();
     res.redirect('/');
   } catch (error) {
     console.log(error.message);
@@ -32,9 +37,15 @@ const renderDetails = async (req, res) => {
     const user = await userServices.getUser(userId);
     const course = await courseServices.getOne(courseId);
     const isEnrolled = await user.isEnrolled(courseId);
-    res.render('course/details', { course, user: req.user, isEnrolled });
+    const isAuthor = await user.isAuthor(courseId);
+    res.render('course/details', {
+      course,
+      user: req.user,
+      isEnrolled,
+      isAuthor,
+    });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     res.redirect(`/course/${courseId}/details`);
   }
 };
