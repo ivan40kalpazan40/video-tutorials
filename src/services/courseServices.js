@@ -10,6 +10,11 @@ const getOne = async (id) => {
   return course;
 };
 
+const getCourse = async (id) => {
+  const course = await Course.findById(id);
+  return course;
+};
+
 const create = async (addCourse) => {
   const course = await Course.create(addCourse);
   return course;
@@ -26,5 +31,12 @@ const deleteOne = async (id) => {
   return await Course.findByIdAndDelete(id);
 };
 
-const courseServices = { create, update, deleteOne, getAll, getOne };
+const courseServices = {
+  create,
+  update,
+  deleteOne,
+  getAll,
+  getOne,
+  getCourse,
+};
 module.exports = courseServices;

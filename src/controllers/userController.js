@@ -14,17 +14,15 @@ const renderRegister = (req, res) => {
   res.render('user/register');
 };
 
-const registerUser = (req, res) => {
+const registerUser = async (req, res) => {
   const { username, password, repeatPassword } = req.body;
-  userServices
-    .create(username, password, repeatPassword)
-    .then((user) => {
-      res.redirect('/user/login');
-    })
-    .catch((err) => {
-      console.log(err.message);
-      res.redirect('/user/register');
-    });
+  try {
+    const user = await userServices.create(username, password, repeatPassword);
+    res.redirect('/user/login');
+  } catch (error) {
+    console.log(error.message);
+    res.redirect('/user/register');
+  }
 };
 
 const renderLogin = (req, res) => {

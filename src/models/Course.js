@@ -9,5 +9,9 @@ const courseSchema = new mongoose.Schema({
   enrolledUsers: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
 });
 
+courseSchema.method('addEnrolledUsers', function (user) {
+  this.enrolledUsers.push(user);
+});
+
 const Course = mongoose.model('Course', courseSchema);
 module.exports = Course;

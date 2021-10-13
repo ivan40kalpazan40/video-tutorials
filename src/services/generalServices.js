@@ -1,8 +1,13 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const SECRET = 'izpravisebegenieidvame';
 
 const validate = (pass1, pass2) => {
   return pass1 === pass2;
+};
+
+const hashPass = async (password) => {
+  return await bcrypt.hash(password, 12);
 };
 
 const userExists = (user) => {
@@ -25,5 +30,5 @@ const createToken = (user) => {
     });
   });
 };
-const generalServices = { validate, userExists, createToken };
+const generalServices = { validate, userExists, createToken, hashPass };
 module.exports = generalServices;

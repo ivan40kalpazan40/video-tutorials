@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/User');
+const Course = require('../models/Course');
 const courseServices = require('../services/courseServices');
 const userServices = require('../services/userServices');
 const router = express.Router();
@@ -71,14 +72,14 @@ const enrollUser = async (req, res) => {
   const userId = req.user._id;
   const courseId = req.params.id;
   try {
-    const course = await courseServices.getOne(courseId);
     const user = await userServices.getUser(userId);
+    const course = await courseServices.getCourse(courseId);
     await user.enroll(course);
     await user.save();
     res.redirect(`/course/${courseId}/details`);
   } catch (error) {
-    console.log(error);
-    res.redirect(`/course/${courseId}/details`);
+    console.log(error.message);
+    res.redirect(`/`);
   }
 };
 

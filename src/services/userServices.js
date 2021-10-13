@@ -10,7 +10,8 @@ const create = async (username, password, password2) => {
   const isValid = generalServices.validate(password, password2);
   if (isValid) {
     try {
-      const user = await User.create({ username, password });
+      const hashed = await generalServices.hashPass(password);
+      const user = await User.create({ username, password: hashed });
       return user;
     } catch (error) {
       throw error;
