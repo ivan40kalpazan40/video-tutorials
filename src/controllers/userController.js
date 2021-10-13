@@ -25,7 +25,6 @@ const registerUser = (req, res) => {
       console.log(err.message);
       res.redirect('/user/register');
     });
-  const user = console.log('REGISTER USER POST REQUEST');
 };
 
 const renderLogin = (req, res) => {
