@@ -22,11 +22,13 @@ const createCourse = async (req, res) => {
   }
 };
 
-const renderDetails = (req, res) => {
-  res.render('course/details');
+const renderDetails = async (req, res) => {
+  const courseId = req.params.id;
+  const course = await courseServices.getOne(courseId);
+  res.render('course/details', { course, user: req.user });
 };
 router.get('/create', renderCreate);
 router.post('/create', createCourse);
-router.get('/details', renderDetails);
+router.get('/:id/details', renderDetails);
 
 module.exports = router;
