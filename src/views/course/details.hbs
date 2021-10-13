@@ -23,14 +23,15 @@
               class='btn btn-warning'
               href='/course/{{course._id}}/edit'
             >Edit</a>
-          {{/if}}
-          {{#if isEnrolled}}
-            <span class='enrolled-span'>You are already enrolled</span>
           {{else}}
-            <a
-              class='btn btn-primary'
-              href='/course/{{course._id}}/enroll'
-            >Enroll</a>
+            {{#if isEnrolled}}
+              <span class='enrolled-span'>You are already enrolled</span>
+            {{else}}
+              <a
+                class='btn btn-primary'
+                href='/course/{{course._id}}/enroll'
+              >Enroll</a>
+            {{/if}}
           {{/if}}
         {{/if}}
       </div>
