@@ -41,11 +41,11 @@
           {{/if}}
         </ul>
       </nav>
-
-      <section class='notifications'>
-        <p class='notification-message'>Message...</p>
-      </section>
-
+      {{#if message}}
+        <section class='notifications'>
+          <p class='notification-message'>Message...</p>
+        </section>
+      {{/if}}
       {{{body}}}
       <footer class='page-footer font-small'>
         <div class='footer-copyright text-center py-3'>© 2019

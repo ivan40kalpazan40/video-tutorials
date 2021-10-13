@@ -13,6 +13,14 @@ userSchema.pre('save', function (next) {
   });
 });
 
+userSchema.method('enroll', function (course) {
+  this.enrolledIn.push(course);
+});
+
+userSchema.method('isEnrolled', function (course) {
+  return this.enrolledIn.includes(course);
+});
+
 userSchema.method('validatePassword', function (password) {
   return bcrypt.compare(password, this.password);
 });

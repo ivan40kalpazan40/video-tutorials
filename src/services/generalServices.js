@@ -13,6 +13,7 @@ const createToken = (user) => {
   const payload = {
     _id: user._id,
     username: user.username,
+    enrolledIn: user.enrolledIn,
   };
   return new Promise((resolve, reject) => {
     jwt.sign(payload, SECRET, (err, token) => {
