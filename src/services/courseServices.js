@@ -15,5 +15,12 @@ const create = async (addCourse) => {
   return course;
 };
 
-const courseServices = { create, getAll, getOne };
+const update = async (id, newCourse) => {
+  const course = await Course.findByIdAndUpdate(id, newCourse, {
+    runValidators: true,
+  });
+  return course;
+};
+
+const courseServices = { create, update, getAll, getOne };
 module.exports = courseServices;

@@ -34,6 +34,23 @@ const renderEdit = async (req, res) => {
   res.render('course/edit', { course, user: req.user });
 };
 
+const editCourse = async (req, res) => {
+  const courseId = req.params.id;
+  const { title, description, imageUrl, isPublic } = req.body;
+  try {
+    const course = await courseServices.update(courseId, {
+      title,
+      description,
+      imageUrl,
+      isPublic: Boolean(isPublic),
+    });
+    res.redirect('/');
+  } catch (error) {
+    console.log('Course update failed!');
+    res.redirect(`/course/${courseId}/edit`);
+  }
+};
+
 const deleteCourse = () => {
   console.log('FROM DELETE');
 };
@@ -42,5 +59,6 @@ router.get('/create', renderCreate);
 router.post('/create', createCourse);
 router.get('/:id/details', renderDetails);
 router.get('/:id/edit', renderEdit);
+router.post('/:id/edit', editCourse);
 router.get('/:id/delete', deleteCourse);
 module.exports = router;
