@@ -15,3 +15,24 @@ exports.auth = function (req, res, next) {
     next();
   }
 };
+
+exports.homeLogged = function (req, res, next) {
+  if (req.user) {
+    return res.redirect('/user');
+  }
+  next();
+};
+
+exports.homeNotLogged = function (req, res, next) {
+  if (!req.user) {
+    return res.redirect('/');
+  }
+  next();
+};
+
+exports.isLogged = function (req, res, next) {
+  if (!req.user) {
+    return res.redirect('/user/login');
+  }
+  next();
+};

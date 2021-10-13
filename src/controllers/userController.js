@@ -1,6 +1,7 @@
 const express = require('express');
 const userServices = require('../services/userServices');
 const generalServices = require('../services/generalServices');
+const { homeNotLogged } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 const userHomePage = (req, res) => {
@@ -51,6 +52,6 @@ router.post('/register', registerUser);
 router.get('/login', renderLogin);
 router.post('/login', loginUser);
 router.get('/logout', logoutUser);
-router.get('/', userHomePage);
+router.get('/', homeNotLogged, userHomePage);
 
 module.exports = router;
