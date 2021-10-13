@@ -27,8 +27,20 @@ const renderDetails = async (req, res) => {
   const course = await courseServices.getOne(courseId);
   res.render('course/details', { course, user: req.user });
 };
+
+const renderEdit = async (req, res) => {
+  const courseId = req.params.id;
+  const course = await courseServices.getOne(courseId);
+  res.render('course/edit', { course, user: req.user });
+};
+
+const deleteCourse = () => {
+  console.log('FROM DELETE');
+};
+
 router.get('/create', renderCreate);
 router.post('/create', createCourse);
 router.get('/:id/details', renderDetails);
-
+router.get('/:id/edit', renderEdit);
+router.get('/:id/delete', deleteCourse);
 module.exports = router;
