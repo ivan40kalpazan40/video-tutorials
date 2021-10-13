@@ -5,7 +5,7 @@ const courseSchema = new mongoose.Schema({
   description: { type: String, required: true, maxlength: 50 },
   imageUrl: { type: String, required: true },
   isPublic: { type: Boolean, default: false },
-  created: { type: Date, required: true },
+  created: { type: Date, required: true, default: Date.now() },
   enrolledUsers: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
 });
 
