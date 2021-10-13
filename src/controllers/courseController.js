@@ -75,6 +75,8 @@ const enrollUser = async (req, res) => {
     const user = await userServices.getUser(userId);
     const course = await courseServices.getCourse(courseId);
     await user.enroll(course);
+    await course.addEnrolledUsers(user);
+    await course.save();
     await user.save();
     res.redirect(`/course/${courseId}/details`);
   } catch (error) {
