@@ -36,3 +36,10 @@ exports.isLogged = function (req, res, next) {
   }
   next();
 };
+
+exports.isGuest = function (req, res, next) {
+  if (req.user) {
+    return res.redirect('/user');
+  }
+  next();
+};

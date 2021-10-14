@@ -2,7 +2,11 @@ const express = require('express');
 const userServices = require('../services/userServices');
 const courseServices = require('../services/courseServices');
 const generalServices = require('../services/generalServices');
-const { homeNotLogged } = require('../middleware/authMiddleware');
+const {
+  homeNotLogged,
+  isGuest,
+  isLogged,
+} = require('../middleware/authMiddleware');
 const router = express.Router();
 
 const userHomePage = async (req, res) => {
@@ -46,11 +50,11 @@ const logoutUser = (req, res) => {
   res.clearCookie('mycookie').redirect('/');
 };
 
-router.get('/register', renderRegister);
-router.post('/register', registerUser);
-router.get('/login', renderLogin);
-router.post('/login', loginUser);
+router.get('/register', isGuest, renderRegister);
+router.post('/register', isGuest, registerUser);
+router.get('/login', isGuest, renderLogin);
+router.post('/login', isGuest, loginUser);
 router.get('/logout', logoutUser);
-router.get('/', homeNotLogged, userHomePage);
+router.get('/', homeNotLogged, isLogged, userHomePage);
 
 module.exports = router;
